@@ -1,5 +1,5 @@
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">  
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>net.java</groupId>
@@ -47,32 +47,32 @@
             <timezone>US Pacific</timezone>
         </developer>
     </developers>
-  
+
     <scm>
         <connection>scm:svn:https://svn.java.net/svn/maven-antrun-extended-plugin~svn/trunk/maven-antrun-extended-plugin</connection>
         <developerConnection>scm:svn:https://svn.java.net/svn/maven-antrun-extended-plugin~svn/trunk/maven-antrun-extended-plugin</developerConnection>
         <url>http://java.net/projects/maven-antrun-extended-plugin/sources/svn/show</url>
     </scm>
-    
+
     <properties>
         <!-- skipping tests until someone decides to fix this -->
         <maven.test.skip>true</maven.test.skip>
         <!-- if you need to debug against a different version of option, -Dmaven.version=2.0.7 -->
         <maven.version>2.0.7</maven.version>
     </properties>
-  
+
     <build>
         <plugins>
             <plugin>
                 <artifactId>maven-plugin-plugin</artifactId>
-                <version>2.4</version>
+                <version>3.6.4</version>
             </plugin>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.4</version>
+                <version>3.10.1</version>
                 <configuration>
-                    <source>1.5</source>
-                    <target>1.5</target>
+                    <source>1.8</source>
+                    <target>1.8</target>
                 </configuration>
             </plugin>
             <plugin>
@@ -154,7 +154,7 @@
             </build>
         </profile>
     </profiles>
-  
+
     <dependencies>
         <dependency>
             <groupId>org.apache.maven</groupId>
@@ -167,20 +167,15 @@
             <version>${maven.version}</version>
         </dependency>
         <dependency>
-            <groupId>ant</groupId>
+            <groupId>org.apache.ant</groupId>
             <artifactId>ant-launcher</artifactId>
-            <version>1.6.5</version>
+            <version>1.10.12</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
-            <groupId>ant</groupId>
+            <groupId>org.apache.ant</groupId>
             <artifactId>ant</artifactId>
-            <!--
-            Ant 1.7 causes http://www.nabble.com/Another-V3-build-error-after-update-tt14721686.html
-            See http://jira.codehaus.org/browse/MANTRUN-68 for the cause. In the mean time,
-            falling back to 1.6.5.
-            -->
-            <version>1.6.5</version>
+            <version>1.10.12</version>
         </dependency>
         <dependency>
             <groupId>org.apache.maven</groupId>
@@ -190,14 +185,14 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.apache.commons</groupId>
+            <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
-            <version>1.3.2</version>
+            <version>2.11.0</version>
         </dependency>
         <dependency>
             <groupId>commons-collections</groupId>
             <artifactId>commons-collections</artifactId>
-            <version>3.2</version>
+            <version>3.2.2</version>
         </dependency>
     </dependencies>
 </project>
