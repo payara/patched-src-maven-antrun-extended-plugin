@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
+import org.apache.tools.ant.types.ResourceCollection;
 
 /**
  * &lt;jar> task extended to correctly merge manifest metadata.
@@ -22,21 +23,19 @@ import java.util.Map;
  * @author Kohsuke Kawaguchi
  */
 public class RejarTask extends Jar {
-//
-// these fields only have a life-span within the execute method.
-//
+    public RejarTask() {
+        // we want to put metadata files earlier in the file for faster runtime access,
+        // and for that we require two passes.
+        doubleFilePass = true;
+    }
+
+    //
+    // these fields only have a life-span within the execute method.
+    //
     /**
      * Merged metadata files in <tt>META-INF</tt>
      */
     private final Map<String,ByteArrayOutputStream> metadata = new HashMap<String,ByteArrayOutputStream>();
-
-    public void execute() throws BuildException {
-        // we want to put metadata files earlier in the file for faster runtime access,
-        // and for that we require two passes.
-        doubleFilePass = true;
-
-        super.execute();
-    }
 
     protected void initZipOutputStream(ZipOutputStream zOut) throws IOException, BuildException {
         if (!skipWriting) {
@@ -79,5 +78,27 @@ public class RejarTask extends Jar {
 
         // merge inhabitants file
         super.zipFile(is, zOut, vPath, lastModified, fromArchive, mode);
+    }
+
+    /**
+     * prevent {@code getResourcesToAdd} from only returning Manifest
+     *
+     * @param rcs
+     * @param zipFile
+     * @param needsUpdate
+     * @return
+     */
+    @Override
+    protected ArchiveState getResourcesToAdd(ResourceCollection[] rcs,
+                                             File zipFile,
+                                             boolean needsUpdate) {
+        boolean localSkipWriting = skipWriting;
+        try {
+            // prevents only manifest from being considered
+            skipWriting = false;
+            return super.getResourcesToAdd(rcs, zipFile, needsUpdate);
+        } finally {
+            skipWriting = localSkipWriting;
+        }
     }
 }
