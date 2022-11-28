@@ -1,0 +1,22 @@
+generated/
+maven-antrun-extended-plugin/target/
+*.class
+
+# Eclipse
+.project
+.classpath
+.settings/
+.wtpmodules
+
+# IntelliJ
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# VS Code
+.vscode/
+
+# Netbeans
+*nbactions.xml
+**/nbproject
